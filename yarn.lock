@@ -250,14 +250,14 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
-auth0-js@9.0.0-beta.5:
-  version "9.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/auth0-js/-/auth0-js-9.0.0-beta.5.tgz#1edc53762ccfd806f4489736c33c71dba61f9d9e"
+"auth0-js@~> 9.3.0":
+  version "9.3.4"
+  resolved "https://registry.yarnpkg.com/auth0-js/-/auth0-js-9.3.4.tgz#1b02a84689edff780be7b7f6cf44de46a51baa3e"
   dependencies:
     base64-js "^1.2.0"
-    idtoken-verifier "^1.1.0"
+    idtoken-verifier "^1.1.2"
     qs "^6.4.0"
-    superagent "^3.3.1"
+    superagent "^3.8.2"
     url-join "^1.1.0"
     winchan "^0.2.0"
 
@@ -2881,7 +2881,7 @@ icss-replace-symbols@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/icss-replace-symbols/-/icss-replace-symbols-1.1.0.tgz#06ea6f83679a7749e386cfe1fe812ae5db223ded"
 
-idtoken-verifier@^1.1.0:
+idtoken-verifier@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/idtoken-verifier/-/idtoken-verifier-1.2.0.tgz#4654f1f07ab7a803fc9b1b8b36057e2a87ad8b09"
   dependencies:
@@ -5609,7 +5609,7 @@ style-loader@0.13.1:
   dependencies:
     loader-utils "^0.2.7"
 
-superagent@^3.3.1, superagent@^3.8.2:
+superagent@^3.8.2:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/superagent/-/superagent-3.8.3.tgz#460ea0dbdb7d5b11bc4f78deba565f86a178e128"
   dependencies:
