@@ -1,0 +1,33 @@
+.navbar-right { margin-right: 0px !important}
+.log {
+  margin: 5px 10px 0 0;
+}
+.panel-title:after {
+  clear: both;
+}
+.panel-title span{
+    float: left;
+    margin: 0;
+}
+
+.panel-heading .btnDismiss{
+  float: right;
+  margin: 0;
+}
+
+.bids-modal .row {
+  border: 1px solid black;
+  padding-bottom: 1px;
+}
+
+.bids-modal .current-bid {
+  background-color: greenyellow;
+}
+
+.winning-bid {
+  background-color: greenyellow;
+  padding: 5px;
+}
+.hidden {
+  display: none;
+}

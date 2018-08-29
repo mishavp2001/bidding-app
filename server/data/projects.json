@@ -1,0 +1,70 @@
+[
+{
+  "id": 99994,
+  "userId": 2,
+  "email": "mishavp2001@yahoo.com",
+  "date": "08/29/2018",
+  "project": "Clean room 4",
+  "details": "Address: 4222 n7th, San Jose. Come at 9AM and go from side yard.",
+  "bids": [
+    {"id": 1,
+      "amount": 200,
+      "time": 48,
+      "userid":2,
+      "user": "mishavp2001@yahoo.com"
+    },
+      {"id": 2,
+      "amount": 230,
+      "time": 24,
+      "userid":2,
+      "email": "mike@yahoo.com"
+    },
+      {"id": 6,
+      "amount": 130,
+      "time": 24,
+      "userid":2,
+      "email": "mike@yahoo.com"
+    },
+      {"id": 3,
+      "amount": 530,
+      "time": 56,
+      "userid":3,
+      "email": "mik12121e@yahoo.com"
+    }
+  ]
+},
+{
+  "id": 9223,
+  "userId": 2,
+  "email": "mishavp2001@yahoo.com",
+  "date": "08/29/2018",
+  "project": "Clean room 7",
+  "details": "Address: 4222 n7th, San Jose. Come at 9AM and go from side yard.",
+  "bids": [
+    {"id": 1,
+      "amount": 200,
+      "time": 48,
+      "userid":2,
+      "user": "mishavp2001@yahoo.com"
+    },
+      {"id": 2,
+      "amount": 230,
+      "time": 24,
+      "userid":2,
+      "email": "mike@yahoo.com"
+    },
+      {"id": 6,
+      "amount": 130,
+      "time": 24,
+      "userid":2,
+      "email": "mike@yahoo.com"
+    },
+      {"id": 3,
+      "amount": 530,
+      "time": 56,
+      "userid":3,
+      "email": "mik12121e@yahoo.com"
+    }
+  ]
+}
+]
