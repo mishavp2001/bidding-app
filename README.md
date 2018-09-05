@@ -51,52 +51,46 @@ Expectations:
 This is an open-ended exercise. The goal is to demonstrate how well you design a system with limited requirements Come prepared with high level Architecture and Design. You are expected to explain the rationale for your choice of technologies and architectural patterns.
 
 
-Main functionality:
-<ul>
-<li>
-  Add new project and describe what needs to be done and by when - WHAT and WHEN. Nice to have: add minimum and maximum bid.
-</li>
-<li>
-  Add bid to existing projects.
-</li>
-<li>
-  Automatically stop accept bidding and select a winer when project bid expiration time passed  
-</li>
-</ul>
+## Main functionality:
+    Add new project and describe what needs to be done and by when - WHAT and WHEN. Nice to have: add minimum and maximum bid.
+      Add bid to existing projects.
+      Automatically stop accept bidding and select a winer when project bid expiration time passed  
 
-Out of scope but important design considerations
-  Ability to handle secure transactions inside the system
-  Ability for project owner to pick winer not only on lowest bid but also other factors
-  Allow to submit bids in decremental order only.  
-  Allow automatic bid submits
+    Out of scope but important design considerations
+      Ability to handle secure transactions inside the system
+      Ability for project owner to pick winer not only on lowest bid but also other factors
+      Allow to submit bids in decremental order only.  
+      Allow automatic bid submits
 
-Non-functional Requirements
-  High availability
-  Low latency is expected
-  Highly reliable
-  Absolutely Secure
+    Non-functional Requirements
+      High availability
+      Low latency is expected
+      Highly reliable
+      Absolutely Secure
 
 
-Architectural diagram:
+Architecture:
+================================================
+    Client choice: (React) vs Angular
+        - Quick Reactive UI
+        - Complex components that present data consistently
+        - Flexibility
+        - https://medium.com/unicorn-supplies/angular-vs-react-vs-vue-a-2017-comparison-c5c52d620176
 
-Client choice: (React) vs Angular
-    - Quick Reactive UI
-    - Complex components that present data consistently
-    - Flexibility
-    - https://medium.com/unicorn-supplies/angular-vs-react-vs-vue-a-2017-comparison-c5c52d620176
 
-Server choice: (NodeJs) vs Java
-    - Database queries
-    - Scalability and simplicity
-    - Development
-Database choice: (MongoDB) vs Cassandra
-    MongoDB supports a “single master” model vs Cassandra “multiple master” - uptime for writes.
-    Rich data model then MongoDB
-    If your application needs secondary indexes and needs flexibility in the query model then MongoDB is a better fit
+    Server choice: (NodeJs) vs Java
+        - Database queries
+        - Scalability and simplicity
+        - Development
 
-    - Reads load - need highly reliable response on reads - 50K service providers = 2008/hour = 34/min
-    - Writes load - 100 projects plus 50 bids per project = 5'000 writes per day = 208/hour
+    Database choice: (MongoDB) vs Cassandra
+        MongoDB supports a “single master” model vs Cassandra “multiple master” - uptime for writes.
+        Rich data model then MongoDB
+        If your application needs secondary indexes and needs flexibility in the query model then MongoDB is a better fit
 
-Load Balancer 
-    Between Application Servers and Cache servers - CDN
-    Between Clients and Application servers
+        - Reads load - need highly reliable response on reads - 50K service providers = 2008/hour = 34/min
+        - Writes load - 100 projects plus 50 bids per project = 5'000 writes per day = 208/hour
+
+    Load Balancer 
+        Between Application Servers and Cache servers - CDN
+        Between Clients and Application servers
