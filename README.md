@@ -52,14 +52,15 @@ This is an open-ended exercise. The goal is to demonstrate how well you design a
 
 
 ## Main functionality:
-    Add new project and describe what needs to be done and by when - WHAT and WHEN. Nice to have: add minimum and maximum bid.
-      Add bid to existing projects.
-      Automatically stop accept bidding and select a winer when project bid expiration time passed  
+    Add new project and describe what needs to be done and by when - WHAT and WHEN. 
+    Automatically stop accept bidding and select a winer when project bid expiration time passed  
 
     Out of scope but important design considerations
+      Add minimum and maximum bid to project.
+      Add bid to existing projects.
       Ability to handle secure transactions inside the system
       Ability for project owner to pick winer not only on lowest bid but also other factors
-      Allow to submit bids in decremental order only.  
+      Allow to submit bids in decrementaly only.  
       Allow automatic bid submits
 
     Non-functional Requirements
@@ -67,7 +68,6 @@ This is an open-ended exercise. The goal is to demonstrate how well you design a
       Low latency is expected
       Highly reliable
       Absolutely Secure
-
 
 Architecture:
 ================================================
@@ -84,13 +84,12 @@ Architecture:
         - Development
 
     Database choice: (MongoDB) vs Cassandra
-        MongoDB supports a “single master” model vs Cassandra “multiple master” - uptime for writes.
-        Rich data model then MongoDB
-        If your application needs secondary indexes and needs flexibility in the query model then MongoDB is a better fit
-
         - Reads load - need highly reliable response on reads - 50K service providers = 2008/hour = 34/min
         - Writes load - 100 projects plus 50 bids per project = 5'000 writes per day = 208/hour
+        -- MongoDB supports a “single master” model vs Cassandra “multiple master” - uptime for writes.
+        -- Rich data model then MongoDB - application needs secondary indexes and needs flexibility in the query model then   MongoDB is a better fit
 
-    Load Balancer 
-        Between Application Servers and Cache servers - CDN
-        Between Clients and Application servers
+    Load Balancer and caching
+        Between Application Servers and Cache servers - CDN - READ perfomance
+        Between Clients and Application servers - CACHE curent day expiring auctions
+        
