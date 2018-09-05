@@ -43,7 +43,7 @@ export default class Projects extends Component{
       <div className='container-fluid project-container'>
         <span>Sort:</span>
         <span className={`sortLink ${(sortedBy==='minbid') ? 'selected':''}`} onClick={(e) => sortBy('minbid', e)} >Amount</span>
-        <span className= {`sortLink ${(sortedBy==='time') ? 'selected':''}`} onClick={(e) => sortBy('left', e)} >Time</span>
+        <span className= {`sortLink ${(sortedBy==='left') ? 'selected':''}`} onClick={(e) => sortBy('left', e)} >Time</span>
 
         <div className='row'>
           {
