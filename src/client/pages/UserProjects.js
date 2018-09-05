@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import Projects from "../components/Projects";
-import socketIOClient from "socket.io-client";
+import { getProjectsData } from '../services/projects-api';
 
 const DEFAULT_SORT = "id";
 
 export default class UserProjects extends Component {
   constructor(props) {
     super(props);
-    this.state = { movies: null, sortedBy: DEFAULT_SORT };
+    this.projects = [];
+    this.state = { projects: null, sortedBy: DEFAULT_SORT };
   }
 
   componentDidMount() {
@@ -16,19 +17,12 @@ export default class UserProjects extends Component {
   }
 
   getProjects() {
-    const socket = socketIOClient('http://localhost:8080/');
-    socket.on('connect', () => {
-      //console.log("Socket Connected");
-      socket.emit('projects', "Load");
-      socket.on("projects", projects => {
-        //Time out to show asynchronious behavier
-        setTimeout(() => { this.setState({ projects: projects })}, 1000);
-      });
-    });
-    socket.on('disconnect', () => {
-      socket.off("projects")
-      socket.removeAllListeners("projects");
-      //console.log("Socket Disconnected");
+    //Get static response for users recent projects
+    getProjectsData().then((projects) => {
+      this.projects = this.projects.concat(projects);
+      this.setState(
+        { projects: projects}
+      );
     });
   }
 

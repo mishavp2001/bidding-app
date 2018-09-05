@@ -31,6 +31,7 @@ body {
   overflow: hidden;
   margin-bottom: 1.875rem;
   cursor:pointer;
+  padding: 20px;
   background-color: gainsboro;
 }
 
@@ -100,12 +101,12 @@ body {
   top: 50%;
   left: 50%;
   z-index: 11;
-  padding: 0;
+  padding: 20px;
   overflow: auto;
   max-width: 100%;
   max-height: 100%;
   border-radius: $radius;
-  background-color: yellow;
+  background-color: #ffffff;
   transform: translate(-50%, -50%);
 }
 

@@ -61,11 +61,17 @@ class Bid extends Component {
         //console.log("Emit get bids message for project id" + this.props.projectid);
         this.socket.emit('bids', projectroom);
         this.socket.on("bids", bids => {
-          let sortbid = _.sortBy(bids.concat(this.state.bids).slice(0, 50), "amount");
-          this.setState({ bids: sortbid});
-          this.props.setMinBid(sortbid[0].amount);
+          if(!this.props.search){
+              let sortbid = _.sortBy(bids.concat(this.state.bids).slice(0, 50), "amount");
+              this.setState({ bids: sortbid});
+              this.props.setMinBid(sortbid[0].amount);
+          }
         });
       });
+  }
+
+  componentWillUnmount () {
+    this.stopBids();
   }
 
   stopBids() {

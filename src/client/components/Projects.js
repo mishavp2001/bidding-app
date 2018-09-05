@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 import "../css/project.css";
 
 export default class Projects extends Component{
@@ -16,7 +17,7 @@ export default class Projects extends Component{
     this.state = {
         showModal: false,
         url: '',
-        sort: 'movieId'
+        sort: 'left'
     }
     }
 
@@ -41,18 +42,18 @@ export default class Projects extends Component{
     return(
       <div className='container-fluid project-container'>
         <span>Sort:</span>
-        <span className={`sortLink ${(sortedBy==='amount') ? 'selected':''}`} onClick={(e) => sortBy('amount', e)} >Amount</span>
-        <span className= {`sortLink ${(sortedBy==='time') ? 'selected':''}`} onClick={(e) => sortBy('time', e)} >Time</span>
+        <span className={`sortLink ${(sortedBy==='minbid') ? 'selected':''}`} onClick={(e) => sortBy('minbid', e)} >Amount</span>
+        <span className= {`sortLink ${(sortedBy==='time') ? 'selected':''}`} onClick={(e) => sortBy('left', e)} >Time</span>
 
         <div className='row'>
           {
             projects.map((prj, index) => {
-               const {id, project, details} = prj;
+               const {id, project, details,  minbid, left} = prj;
                return <div key={id + "-" + index}  className='col-sm-12'>
                   <div className='project-card' onClick={(e) => this.openModal(prj, e)}>
-                      <span className="col-sm-6">{project}</span>
-                      <span className="col-sm-3">{id}</span>
-                      <span className="col-sm-2">{details}</span>
+                      <p>{id} - {project}</p>
+                      <p>{details}</p>
+                      <p>Amount: {minbid} Time: {moment(left).format()}</p>
                   </div>
                 </div>
              })
@@ -72,27 +73,17 @@ class ProjectsModal extends Component {
     if (this.props.isopen === false) {
       return null;
     }
-    const {id, project, email, amount, time, details, bids } = this.props.details;
+    const {id, project, email, minbid, left, details } = this.props.details;
     return(
       <div className='modal-overlay' onClick={this.props.onClick} name={this.props.name}>
         <div className='modal-body'>
             <a className='modal-close' href='#' onClick={this.props.onClick}><span className='fa fa-times'></span></a>
-            <p>
-              <span className="col-sm-6">ID</span>
-              <span className="col-sm-6">{id}</span>
-            </p>
-            <p>
-              <span className="col-sm-6">Project</span>
-              <span className="col-sm-6">{project}</span>
-            </p>
-            <p>
-              <span className="col-sm-6">Contact email</span>
-              <span className="col-sm-6">{email}</span>
-            </p>
-            <p>
-              <span className="col-sm-6">details</span>
-              <span className="col-sm-6">{details}</span>
-            </p>
+                <p>ID: {id}</p>
+                <p>Project: {project}</p>
+                <p>Contact email: {email}</p>
+                <p>{details}</p>
+                <p>Bid: {minbid}</p>
+                <p>Time: {left}</p>
       </div>
       </div>
     )

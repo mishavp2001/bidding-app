@@ -16,6 +16,12 @@ class Nav extends Component {
         </div>
         <ul className="nav navbar-nav">
           <li>
+             <Link to="/myprojects">My Projects</Link>
+          </li>
+          <li>
+             <Link to="/newproject">Submit Project</Link>
+          </li>
+          <li>
             {
              ( isLoggedIn() ) ? <Link to="/profile">Profile</Link> :  ''
             }

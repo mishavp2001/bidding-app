@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import _ from 'underscore';
 import { login, logout, isLoggedIn } from '../services/AuthService';
 import moment from 'moment';
-import Nav from '../components/Nav';
+import Search from '../components/Search';
 import Bids from '../components/Bids';
 import { getProjectsData } from '../services/projects-api';
 
@@ -45,7 +45,8 @@ class HomePage extends Component {
 
   filterProjects = (search) => {
     this.setState(
-      { projects: this.projects.filter(project => (project.project.indexOf(search) !== -1) || (project.details.indexOf(search) !== -1) )}
+      { search: search,
+        projects: this.projects.filter(project => (project.project.indexOf(search) !== -1) || (project.details.indexOf(search) !== -1) )}
     );
   }
 
@@ -73,10 +74,9 @@ class HomePage extends Component {
   }
 
   render() {
-    const { projects, user } = this.state;
+    const { projects, user, search } = this.state;
     return (
       <div>
-        <Nav />
         <h3 className="text-center">Projects available to bid on</h3>
         <Search filterProjects={this.filterProjects} showExpired={this.showExpired.bind(this)}/>
         <hr/>
@@ -90,14 +90,15 @@ class HomePage extends Component {
                         {this.renderHideButton(project.id)}
                     </div>
                     <div className="panel-body" >
-                      <p> { project.details } </p>
-                      <p>Expires: {project.date} </p>
+                      <p>{project.details}</p>
+                      <p>Expires: {project.date}</p>
 
                       <Bids key={index}
                            projectid={project.id}
                            date={project.date}
                            setMinBid={this.setMinBid}
                            user={user}
+                           search={search}
                            loggedin={this.state.loggedin} />
                   </div>
                   </div>
@@ -112,39 +113,4 @@ class HomePage extends Component {
     );
   }
 }
-
-class Search extends Component {
-  constructor(props){
-      super(props);
-      this.state = {
-        showexpired: true
-      }
-      this.showExpired.bind(this);
-      this.onChange.bind(this);
-  }
-
-  onChange = (event)=> {
-    event.stopPropagation();
-    event.preventDefault();
-    //console.log("Search:" + this.refs.search.value);
-    this.props.filterProjects(this.refs.search.value);
-  }
-
-  showExpired = (event)=> {
-    this.props.showExpired(!this.state.showexpired);
-    this.setState({showexpired: !this.state.showexpired});
-  }
-
-  render () {
-    return (
-        <div className="searchBox">
-          <input ref="search" onChange={this.onChange} type="text" placeholder="Search projects"></input>
-          <input ref="showexpired" type="checkbox" checked={this.state.showexpired}  onChange={this.showExpired} />
-          <label htmlFor="showexpired">Show expired</label>
-        </div>
-    )
-  }
-}
-
-
 export default HomePage;
