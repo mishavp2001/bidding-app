@@ -40,10 +40,6 @@ yarn start (or npm start)
 ```
 
 ## Documentation
-You are building a Market Place for Self-Employed.
-
-You have two actors:
-
 Seller: Posts a project with details requirements. The post also includes the last day and time for accepting bids.
 Buyer (Self-Employed): Bids for work on a fixed price or hourly basis.
 
@@ -79,3 +75,28 @@ Non-functional Requirements
   Low latency is expected
   Highly reliable
   Absolutely Secure
+
+
+Architectural diagram:
+
+Client choice: (React) vs Angular
+    - Quick Reactive UI
+    - Complex components that present data consistently
+    - Flexibility
+    - https://medium.com/unicorn-supplies/angular-vs-react-vs-vue-a-2017-comparison-c5c52d620176
+
+Server choice: (NodeJs) vs Java
+    - Database queries
+    - Scalability and simplicity
+    - Development
+Database choice: (MongoDB) vs Cassandra
+    MongoDB supports a “single master” model vs Cassandra “multiple master” - uptime for writes.
+    Rich data model then MongoDB
+    If your application needs secondary indexes and needs flexibility in the query model then MongoDB is a better fit
+
+    - Reads load - need highly reliable response on reads - 50K service providers = 2008/hour = 34/min
+    - Writes load - 100 projects plus 50 bids per project = 5'000 writes per day = 208/hour
+
+Load Balancer 
+    Between Application Servers and Cache servers - CDN
+    Between Clients and Application servers
