@@ -27,6 +27,10 @@ class Bid extends Component {
       this.setState({showBids: !this.state.showBids});
   }
 
+  setExpired = () => {
+      this.setState({expired: true});
+  }
+
   sendBid = () => {
     const userBid = {
       id: this.refs.id.innerText,
@@ -43,17 +47,23 @@ class Bid extends Component {
   }
 
   getBids() {
+      if (this.state.expired) {
+        this.stopBids();
+        return;
+      }
       this.socket = socketIOClient('http://localhost:8080/');
       this.socket.on('disconnect', () => {
           this.stopBids();
       });
       this.socket.on('connect',  () => {
-        console.log("Socket Connected " + this.props.projectid);
+        //console.log("Socket Connected " + this.props.projectid);
         let projectroom =  "project" + this.props.projectid;
-        console.log("Emit get bids message for project id" + this.props.projectid);
+        //console.log("Emit get bids message for project id" + this.props.projectid);
         this.socket.emit('bids', projectroom);
         this.socket.on("bids", bids => {
-          this.setState({ bids: _.sortBy(bids.concat(this.state.bids).slice(0, 10), "amount")});
+          let sortbid = _.sortBy(bids.concat(this.state.bids).slice(0, 50), "amount");
+          this.setState({ bids: sortbid});
+          this.props.setMinBid(sortbid[0].amount);
         });
       });
   }
@@ -65,6 +75,11 @@ class Bid extends Component {
       this.socket.removeAllListeners("bids");
   }
 
+  componentDidMount() {
+      this.getBids();
+      this.stopBids();
+  }
+
   render() {
     const nextBidId = this.state.bids && this.state.bids.length + 1;
     const { now } = this.state;
@@ -72,10 +87,14 @@ class Bid extends Component {
           userBidId = nextBidId,
           userBidTime = 0;
     const bidsLink = this.state.showBids ?  "Close" : "Show Bids";
+    const winingBid = this.state.bids[0] && this.state.bids[0].amount;
+    const winingUser = this.state.bids[0] && this.state.bids[0].email;
 
+    //.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
     return (
       <div>
-          <TimeLeft date={this.props.date} />
+          <TimeLeft date={this.props.date} setExpired={this.setExpired}/>
+          <p className="winning-bid">Wining bid: ${winingBid}  User: {winingUser} </p>
           <a href="#" className="log" onClick={(event) => this.props.loggedin ? this.showBids(event) : login(event)}>{bidsLink}</a>
             { this.state.showBids &&
               <Panel expanded={this.state.showBids} onToggle={()=>{this.showBids(event)}}>
@@ -111,7 +130,7 @@ class Bid extends Component {
                           <input ref="time" type="text" className="col-sm-2" defaultValue={userBidTime}></input>
                           <span ref="id" className="hidden">{userBidId}</span>
                       </div>
-                      <button className="btn btn-info log" onClick={() => this.props.loggedin ?  this.sendBid() : login()}>Bid</button>
+                      {!this.state.expired && <button className="btn btn-info log" onClick={() => this.props.loggedin ?  this.sendBid() : login()}>Send Bid</button>}
                     </div>
                 </Panel.Body>
               </Panel.Collapse>

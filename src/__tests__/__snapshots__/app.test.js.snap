@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`>>>App --- Snapshot +++capturing Snapshot of App 1`] = `
+<div
+  className="container"
+>
+  <div>
+    <nav
+      className="navbar navbar-default"
+    >
+      <div
+        className="navbar-header"
+      >
+        <a
+          className="navbar-brand"
+          href="#/"
+          onClick={[Function]}
+        >
+          Home
+        </a>
+      </div>
+      <ul
+        className="nav navbar-nav"
+      >
+        <li>
+          
+        </li>
+      </ul>
+      <ul
+        className="nav navbar-nav"
+      >
+        <li>
+          
+        </li>
+      </ul>
+      <ul
+        className="nav navbar-nav navbar-right"
+      >
+        <li>
+          <button
+            className="btn btn-info log"
+            onClick={[Function]}
+          >
+            Log In
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <h3
+      className="text-center"
+    >
+      Projects available to bid on
+    </h3>
+    <div>
+      <input
+        onChange={[Function]}
+        placeholder="Search projects"
+        type="text"
+      />
+      <input
+        checked={true}
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <label
+        htmlFor="showexpired"
+      >
+        Show expired
+      </label>
+    </div>
+    <hr />
+    <div
+      className="mainContainer"
+    />
+    <div
+      className="col-sm-12"
+    >
+      <div
+        className="jumbotron text-center"
+      />
+    </div>
+  </div>
+</div>
+`;

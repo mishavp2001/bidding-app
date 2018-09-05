@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { login, logout, isLoggedIn } from '../services/AuthService';
 import '../App.css';
 
 class Nav extends Component {
+  constructor (props) {
+      super(props);
+  }
 
   render() {
     return (

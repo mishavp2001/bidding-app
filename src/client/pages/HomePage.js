@@ -4,7 +4,7 @@ import _ from 'underscore';
 import { login, logout, isLoggedIn } from '../services/AuthService';
 import moment from 'moment';
 import Nav from '../components/Nav';
-import Bid from '../components/Bid';
+import Bids from '../components/Bids';
 import { getProjectsData } from '../services/projects-api';
 
 class HomePage extends Component {
@@ -49,6 +49,25 @@ class HomePage extends Component {
     );
   }
 
+  showExpired = (show) => {
+    let filtered;
+    if(show) {
+      filtered = this.projects;
+    } else {
+      filtered = this.projects.filter(project => ( moment.duration(moment.utc().diff(moment(project.date))) < 0));
+    }
+    this.setState(
+      { projects: filtered}
+    );
+  }
+
+  setMinBid = (minbid) => {
+    this.setState(
+      { minBid: minbid}
+    );
+  }
+
+
   componentDidMount() {
     this.getProjects();
   }
@@ -59,7 +78,7 @@ class HomePage extends Component {
       <div>
         <Nav />
         <h3 className="text-center">Projects available to bid on</h3>
-        <Search filterProjects={this.filterProjects}/>
+        <Search filterProjects={this.filterProjects} showExpired={this.showExpired.bind(this)}/>
         <hr/>
         <div className="mainContainer">
           { projects.map((project, index) => (
@@ -73,11 +92,11 @@ class HomePage extends Component {
                     <div className="panel-body" >
                       <p> { project.details } </p>
                       <p>Expires: {project.date} </p>
-                      <p className="winning-bid">Wining bid: ${project.minbid.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')} </p>
 
-                      <Bid key={index}
+                      <Bids key={index}
                            projectid={project.id}
                            date={project.date}
+                           setMinBid={this.setMinBid}
                            user={user}
                            loggedin={this.state.loggedin} />
                   </div>
@@ -97,16 +116,32 @@ class HomePage extends Component {
 class Search extends Component {
   constructor(props){
       super(props);
+      this.state = {
+        showexpired: true
+      }
+      this.showExpired.bind(this);
+      this.onChange.bind(this);
   }
 
   onChange = (event)=> {
-    console.log("Search:" + this.refs.search.value);
+    event.stopPropagation();
+    event.preventDefault();
+    //console.log("Search:" + this.refs.search.value);
     this.props.filterProjects(this.refs.search.value);
+  }
+
+  showExpired = (event)=> {
+    this.props.showExpired(!this.state.showexpired);
+    this.setState({showexpired: !this.state.showexpired});
   }
 
   render () {
     return (
-        <input ref="search" onChange={this.onChange.bind(this)} type="text" placeholder="Search projects"></input>
+        <div className="searchBox">
+          <input ref="search" onChange={this.onChange} type="text" placeholder="Search projects"></input>
+          <input ref="showexpired" type="checkbox" checked={this.state.showexpired}  onChange={this.showExpired} />
+          <label htmlFor="showexpired">Show expired</label>
+        </div>
     )
   }
 }

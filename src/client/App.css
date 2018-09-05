@@ -31,3 +31,11 @@
 .hidden {
   display: none;
 }
+
+.searchBox input[type=checkbox]{
+  margin: 10px 5px;
+}
+
+.searchBox label{
+  padding: 0 5px;
+}
